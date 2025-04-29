@@ -79,18 +79,18 @@ export default function LoginPageView() {
         xs: 25
       }}>Sign In</H5>
 
-        <Paragraph mt={1} mb={6} color="text.secondary">
+        {/* <Paragraph mt={1} mb={6} color="text.secondary">
           New user?{' '}
           <Box fontWeight={500} component={Link} href="/register">
             Create an Account
           </Box>
-        </Paragraph>
+        </Paragraph> */}
 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid size={12}>
               <H6 fontSize={16} mb={1.5}>
-                Login with your email id
+                {/* Login with your email id */}
               </H6>
 
               <TextField fullWidth placeholder="Enter your work email" name="email" onBlur={handleBlur} value={values.email} onChange={handleChange} helperText={touched.email && errors.email} error={Boolean(touched.email && errors.email)} />
@@ -114,7 +114,7 @@ export default function LoginPageView() {
                 </FlexBox>
 
                 <Box fontSize={13} component={Link} fontWeight={500} color="error.500" href="/forget-password">
-                  Forget Password?
+                  {/* Forget Password? */}
                 </Box>
               </FlexBetween>
             </Grid>
@@ -127,7 +127,7 @@ export default function LoginPageView() {
           </Grid>
         </form>
 
-        <Divider sx={{
+        {/* <Divider sx={{
         my: 4,
         color: 'text.secondary',
         fontSize: 13
@@ -153,7 +153,7 @@ export default function LoginPageView() {
             fontSize: 18
           }} />
           </StyledButton>
-        </FlexBox>
+        </FlexBox> */}
       </Box>
     </Layout>;
 }

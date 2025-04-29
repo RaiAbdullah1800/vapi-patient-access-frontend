@@ -65,10 +65,8 @@ export default function ProfilePopover() {
       }} />
 
             <div>
-              <H6 fontSize={14}>Aaron Cooper</H6>
-              <Small color="text.secondary" display="block">
-                aaron@example.com
-              </Small>
+              <H6 maxWidth={180} fontSize={14}>Hoylake and Meols Medical Centre</H6>
+              
             </div>
           </FlexBox>}>
         <Box pt={1}>

@@ -11,6 +11,37 @@ import SessionBrowser from '../SessionBrowser';
 export default function Analytics1PageView() {
   return <div className="pt-2 pb-4">
       <Grid container spacing={3}>
+      <Grid size={{
+        lg: 6,
+        xs: 12
+      }}>
+        <CompleteGoal />
+        </Grid>
+
+
+        <Grid size={{
+        lg: 6,
+        xs: 12
+      }}>
+        <CompleteRate />
+        </Grid>
+
+        <Grid size={{
+        md: 8,
+        xs: 12
+      }}>
+          <TopQueries />
+        </Grid>
+
+
+
+        <Grid size={{
+        md: 4,
+        xs: 12
+      }}>
+          <SessionBrowser />
+        </Grid>
+
         {
         /* DIFFERENT DATA SHOW WITH CHART */
       }
@@ -32,46 +63,10 @@ export default function Analytics1PageView() {
         </Grid>
 
 
-        <Grid size={{
-        md: 8,
-        xs: 12
-      }}>
-          <TopQueries />
-        </Grid>
-
-
-
-        <Grid size={{
-        md: 4,
-        xs: 12
-      }}>
-          <SessionBrowser />
-        </Grid>
-
-        {
-        /* VISIT BY TOP REFERRAL SOURCE CHART CARD */
-      }
-
-         {
-        /* COMPLETE GOAL AND RATES CHART CARD */
-      }
-        <Grid size={{
-        lg: 6,
-        xs: 12
-      }}>
-        <CompleteGoal />
-        </Grid>
-
-
-        <Grid size={{
-        lg: 6,
-        xs: 12
-      }}>
-        <CompleteRate />
-        </Grid>
-
 
       
+
+
       </Grid>
     </div>;
 }

@@ -83,13 +83,13 @@ export default function Layout() {
           </FlexBox>
 
           <Box mt={2}>
-            <H6 fontSize={18}>Aaron Cooper</H6>
-            <Small color="text.secondary">ADMIN</Small>
+            <H6 fontSize={18}>Hoylake and Meols Medical Centre</H6>
+            {/* <Small color="text.secondary">ADMIN</Small> */}
 
             <StyledFlexBetween>
-              <ListItem title="Developer" Icon={Bratislava} />
-              <ListItem title="New York, USA" Icon={MapMarkerIcon} />
-              <ListItem title="Joined Jan 2021" Icon={DateRange} />
+              <ListItem title="Branch Manager" Icon={Bratislava} />
+              <ListItem title="Wirrel" Icon={MapMarkerIcon} />
+              {/* <ListItem title="Joined Jan 2021" Icon={DateRange} /> */}
             </StyledFlexBetween>
           </Box>
 
@@ -99,20 +99,20 @@ export default function Layout() {
               <div className="contact-item">
                 <MailOutlineIcon color="primary" />
                 <Small color="text.secondary">Email: </Small>
-                <Link href="mailto:aaron@example.com" underline="hover">
-                aaron@example.com
+                <Link href="mailto:naveed@hoylakeandmeolsmedicalcentre.co.uk" underline="hover">
+                naveed@hoylakeandmeolsmedicalcentre.co.uk
                 </Link>
               </div>
-              <div className="contact-item">
+              {/* <div className="contact-item">
                 <PhoneInTalkIcon color="primary" />
                 <Small color="text.secondary">Phone: </Small>
                 <Small>(+1) 555-1234</Small>
-              </div>
+              </div> */}
               <div className="contact-item">
                 <WebIcon color="primary" />
                 <Small color="text.secondary">Website: </Small>
-                <Link href="https://aaronsportfolio.com" target="_blank" underline="hover">
-                  Aarosportfolio.com
+                <Link href="https://www.hoylakeandmeolsmedicalcentre.co.uk" target="_blank" underline="hover">
+                https://www.hoylakeandmeolsmedicalcentre.co.uk
                 </Link>
               </div>
             </Box>
