@@ -90,7 +90,7 @@ export default function CostSummary() {
     { id: 'stt', label: 'STT', value: data.stt_cost, color: theme.palette.primary.main },
     { id: 'llm', label: 'LLM', value: data.llm_cost, color: theme.palette.success.main },
     { id: 'tts', label: 'TTS', value: data.tts_cost, color: theme.palette.warning.main },
-    { id: 'vapi', label: 'VAPI', value: data.vapi_cost, color: theme.palette.error.main },
+    { id: 'vapi', label: 'NEX CALL', value: data.vapi_cost, color: theme.palette.error.main },
   ];
 
   return (
