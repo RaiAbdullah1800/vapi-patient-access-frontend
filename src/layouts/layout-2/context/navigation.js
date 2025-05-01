@@ -9,7 +9,12 @@ export const navigation = [{
   // }, {
   //   name: 'Analytics 2',
   //   path: '/dashboard/analytics-2'
-   }]
+   },
+   {
+    name:'Appointment',
+    path:'/dashboard/appointment'
+   }
+  ]
 }, {
   name: 'Profile',
   Icon: duotone.UserProfile,

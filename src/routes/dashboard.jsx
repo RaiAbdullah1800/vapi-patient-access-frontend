@@ -9,6 +9,7 @@ import LayoutV2 from '@/layouts/layout-2'; // ALL DASHBOARD PAGES
 
 const Analytics = Loadable(lazy(() => import('@/pages/dashboard/analytics')));
 const AnalyticsV2 = Loadable(lazy(() => import('@/pages/dashboard/analytics-2')));
+const AppointmentPage= Loadable(lazy(()=> import ( '@/pages/dashboard/appointment')));
 
 
 
@@ -34,5 +35,8 @@ export const DashboardRoutes = [{
   }, {
     path: 'profile',
     element: <Profile />
+  },{
+    path: 'appointment',
+    element: <AppointmentPage/>
   }]
 }];

@@ -7,18 +7,26 @@ import ChartFilters from '../ChartFilters';
 import CompleteGoal from '../CompleteGoal';
 import CompleteRate from '../CompleteRate';
 import SessionBrowser from '../SessionBrowser';
+import SessionBrowsers from '../SessionBrowsers';
+
+import { Typography } from '@mui/material';
 
 export default function Analytics1PageView() {
   return <div className="pt-2 pb-4">
       <Grid container spacing={3}>
-      <Grid size={{
+        <Grid size={{lg:12, xs:12,md:12}}>
+          <Typography variant="h4" fontSize={24}>
+            Welcome Back!
+          </Typography>
+        </Grid>
+        
+
+        <Grid size={{
         lg: 6,
         xs: 12
       }}>
         <CompleteGoal />
         </Grid>
-
-
         <Grid size={{
         lg: 6,
         xs: 12
@@ -34,12 +42,18 @@ export default function Analytics1PageView() {
         </Grid>
 
 
-
         <Grid size={{
         md: 4,
         xs: 12
       }}>
           <SessionBrowser />
+        </Grid>
+
+        <Grid size={{
+        lg: 12,
+        xs: 12
+      }}>
+        <SessionBrowsers/>
         </Grid>
 
         {
