@@ -8,37 +8,8 @@ import Chart from 'react-apexcharts';
 import merge from 'lodash.merge';
 import { format } from 'date-fns';
 import { baseChartOptions } from '@/utils/baseChartOptions';
-import { Box , Typography } from '@mui/material';
-// Dummy responses for demo (mock API)
-const DUMMY_SUCCESS_RESPONSES = {
-  7: {
-    "success_rate": 100,
-    "successful_calls": 1,
-    "total_calls": 1,
-    "period": "Last 7 days",
-    "start_date": "2025-04-21T18:20:44.121533",
-    "end_date": "2025-04-28T18:20:44.121533",
-    "daily_success_rates": [
-      0,
-      100,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "daily_dates": [
-      "2025-04-21",
-      "2025-04-22",
-      "2025-04-23",
-      "2025-04-24",
-      "2025-04-25",
-      "2025-04-26",
-      "2025-04-27"
-    ]
-  }
-};
-
+import { Box, Typography } from '@mui/material';
+import { fetchCallSuccessRate } from '@/api/axiosApis/get';
 
 // STYLED WRAPPERS
 const ChartWrapper = styled('div')({
@@ -61,23 +32,37 @@ const StatBox = styled('div')(({ theme, active }) => ({
   backgroundColor: active ? theme.palette.action.selected : 'transparent',
 }));
 
-export default function SuccessRateChart({
-  days = 7,
-  type = 'line'
-}) {
+export default function SuccessRateChart({ days = 7, type = 'line' }) {
   const theme = useTheme();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setData(DUMMY_SUCCESS_RESPONSES[days] || DUMMY_SUCCESS_RESPONSES[7]);
-      setLoading(false);
-    }, 300);
+    const loadData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const result = await fetchCallSuccessRate(days);
+        setData(result);
+      } catch (err) {
+        setError('Failed to load data');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, [days]);
 
-  if (loading) return <Card sx={{ p: 3 }}>Loading your success... or lack of it 😅</Card>;
+  if (loading) {
+    return <Card sx={{ p: 3 }}>Loading your success... or lack of it 😅</Card>;
+  }
+
+  if (error || !data) {
+    return <Card sx={{ p: 3 }}>Error loading data 😞</Card>;
+  }
 
   const stats = [
     { id: 1, title: 'Success Rate', value: `${data.success_rate}%` },
@@ -92,47 +77,30 @@ export default function SuccessRateChart({
   const chartCategories = data.daily_dates;
   const maxY = 100;
 
-  const chartOptions = merge(
-    baseChartOptions(theme),
-    {
-      chart: { toolbar: { show: false } },
-      dataLabels: { enabled: true },
-      legend: { show: false },
-      grid: { strokeDashArray: 3, borderColor: theme.palette.divider },
-      xaxis: {
-        categories: chartCategories,
-        axisBorder: {
-          show: true,
-          color: theme.palette.divider,
-        },
-        axisTicks: {
-          show: true,
-          color: theme.palette.divider,
-        },
-        labels: { 
-          style: { colors: theme.palette.text.secondary }
-        }
-      },
-      yaxis: {
-        min: 0,
-        max: maxY,
-        tickAmount: 5,
-        axisBorder: {
-          show: true,
-          color: theme.palette.divider,
-        },
-        axisTicks: {
-          show: true,
-          color: theme.palette.divider,
-        },
-        labels: { 
-          formatter: v => `${v}%`,
-          style: { colors: theme.palette.text.secondary }
-        }
-      },
-      stroke: { curve: 'smooth' }
-    }
-  );
+  const chartOptions = merge(baseChartOptions(theme), {
+    chart: { toolbar: { show: false } },
+    dataLabels: { enabled: true },
+    legend: { show: false },
+    grid: { strokeDashArray: 3, borderColor: theme.palette.divider },
+    xaxis: {
+      categories: chartCategories,
+      axisBorder: { show: true, color: theme.palette.divider },
+      axisTicks: { show: true, color: theme.palette.divider },
+      labels: { style: { colors: theme.palette.text.secondary } }
+    },
+    yaxis: {
+      min: 0,
+      max: maxY,
+      tickAmount: 5,
+      axisBorder: { show: true, color: theme.palette.divider },
+      axisTicks: { show: true, color: theme.palette.divider },
+      labels: {
+        formatter: v => `${v}%`,
+        style: { colors: theme.palette.text.secondary }
+      }
+    },
+    stroke: { curve: 'smooth' }
+  });
 
   return (
     <Card>

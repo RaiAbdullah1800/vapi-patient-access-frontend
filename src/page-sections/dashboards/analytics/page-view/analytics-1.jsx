@@ -1,16 +1,12 @@
 import Grid from '@mui/material/Grid2';
-
-import LiveUser from '../LiveUser';
-
 import IntentAnalysis from '../IntentAnalysisBar';
-
-
 import { Typography } from '@mui/material';
 import CallTimeDistribution from '../CallTimeDistributionBar';
 import CallStats from '../CallStatsDetails';
 import CostSummary from '../CostSummaryPieChart';
 import SentimentBreakdown from '../SentimentBreakdownPieChart';
 import CallTrendsChart from '../CallTrendsChart';
+import SuccessRateChart from '../CallsSuccessRateChart';
 
 export default function Analytics1PageView() {
   return <div className="pt-2 pb-4">
@@ -74,7 +70,7 @@ export default function Analytics1PageView() {
         md: 12,
         xs: 12
       }}>
-          <LiveUser />
+          <SuccessRateChart />
         </Grid>
 
       </Grid>

@@ -120,3 +120,24 @@ export const fetchCallCount = async (days = 7) => {
     throw error;
   }
 };
+
+
+
+
+// GET /analysis/calls/success-rate?days=7
+export const fetchCallSuccessRate = async (days = 7) => {
+  try {
+    const response = await get("/analysis/calls/success-rate", {
+      params: { days },
+    });
+
+    if (isSuccessResp(response.status)) {
+      return response.data;
+    } else {
+      throw new Error("Failed to fetch call success rate");
+    }
+  } catch (error) {
+    console.error("Error fetching call success rate:", error);
+    throw error;
+  }
+};
