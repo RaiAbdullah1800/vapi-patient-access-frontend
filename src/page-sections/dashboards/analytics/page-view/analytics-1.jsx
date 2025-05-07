@@ -5,12 +5,12 @@ import LiveUser from '../LiveUser';
 import ChartFilters from '../ChartFilters';
 import IntentAnalysis from '../IntentAnalysisBar';
 
-import SessionBrowsers from '../SessionBrowsers';
 
 import { Typography } from '@mui/material';
 import CallTimeDistribution from '../CallTimeDistributionBar';
 import CallStats from '../CallStatsDetails';
 import CostSummary from '../CostSummaryPieChart';
+import SentimentBreakdown from '../SentimentBreakdownPieChart';
 
 export default function Analytics1PageView() {
   return <div className="pt-2 pb-4">
@@ -54,7 +54,7 @@ export default function Analytics1PageView() {
         lg: 12,
         xs: 12
       }}>
-        <SessionBrowsers/>
+        <SentimentBreakdown/>
         </Grid>
 
         {

@@ -60,7 +60,7 @@ export const fetchCallDurationStats = async (days=7) => {
 
 
 
-export const fetchCallCostSummary = async (days) => {
+export const fetchCallCostSummary = async (days=7) => {
   try {
     const response = await get("/analysis/costs/sum", {
       params: days ? { days } : {},
@@ -73,6 +73,25 @@ export const fetchCallCostSummary = async (days) => {
     }
   } catch (error) {
     console.error("Error fetching call cost summary:", error);
+    throw error;
+  }
+};
+
+
+
+export const fetchSentimentCounts = async (days=7) => {
+  try {
+    const response = await get("/sentiment/counts", {
+      params: days ? { days } : {},
+    });
+
+    if (isSuccessResp(response.status)) {
+      return response.data.data; // Access nested `data` object directly
+    } else {
+      throw new Error("Failed to fetch sentiment counts");
+    }
+  } catch (error) {
+    console.error("Error fetching sentiment counts:", error);
     throw error;
   }
 };

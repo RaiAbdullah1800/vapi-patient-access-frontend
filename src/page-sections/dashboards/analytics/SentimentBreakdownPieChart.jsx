@@ -10,21 +10,7 @@ import Chart from 'react-apexcharts';
 import { Paragraph } from '@/components/typography';
 import { FlexBetween, FlexBox } from '@/components/flexbox';
 import { baseChartOptions } from '@/utils/baseChartOptions';
-
-// Dummy data – replace this with a fetch from your real endpoint
-const SENTIMENT_DATA = {
-  status: 'success',
-  data: {
-    total_calls: 1,
-    sentiment_counts: {
-      very_happy: 0,
-      happy: 1,
-      neutral: 0,
-      unhappy: 0,
-      unknown: 0,
-    },
-  },
-};
+import { fetchSentimentCounts } from '@/api/axiosApis/get';
 
 const StyledChart = styled(Chart)({
   marginBottom: 24,
@@ -34,18 +20,36 @@ export default function SentimentBreakdown() {
   const theme = useTheme();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setData(SENTIMENT_DATA.data);
-      setLoading(false);
-    }, 300);
+    const loadData = async () => {
+      try {
+        const result = await fetchSentimentCounts(); // or pass days: fetchSentimentCounts(7)
+        setData(result);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load sentiment data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
   if (loading) {
     return (
       <Card sx={{ p: 3 }}>
         <Paragraph color="text.secondary">Loading sentiment breakdown...</Paragraph>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card sx={{ p: 3 }}>
+        <Paragraph color="error.main">{error}</Paragraph>
       </Card>
     );
   }
