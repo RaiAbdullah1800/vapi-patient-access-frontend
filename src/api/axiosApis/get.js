@@ -95,3 +95,28 @@ export const fetchSentimentCounts = async (days=7) => {
     throw error;
   }
 };
+
+
+
+
+
+
+// GET /analysis/calls/count?days=7 (required)
+export const fetchCallCount = async (days = 7) => {
+  try {
+    if (!days || days < 1) throw new Error("`days` must be at least 1");
+
+    const response = await get("/analysis/calls/count", {
+      params: { days },
+    });
+
+    if (isSuccessResp(response.status)) {
+      return response.data;
+    } else {
+      throw new Error("Failed to fetch call count");
+    }
+  } catch (error) {
+    console.error("Error fetching call count:", error);
+    throw error;
+  }
+};

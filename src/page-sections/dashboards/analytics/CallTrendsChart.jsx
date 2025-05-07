@@ -7,34 +7,7 @@ import Chart from 'react-apexcharts';
 import merge from 'lodash.merge';
 import { format } from 'date-fns';
 import { baseChartOptions } from '@/utils/baseChartOptions';
-
-// Dummy data
-const DUMMY_RESPONSES = {
-  2: {
-    total_count: 0,
-    period: "Last 2 days",
-    start_date: "2025-04-26T00:00:00.000Z",
-    end_date: "2025-04-28T00:00:00.000Z",
-    daily_counts: [0, 0],
-    daily_dates: ["2025-04-26", "2025-04-27"]
-  },
-  3: {
-    total_count: 5,
-    period: "Last 3 days",
-    start_date: "2025-04-25T00:00:00.000Z",
-    end_date: "2025-04-28T00:00:00.000Z",
-    daily_counts: [1, 2, 2],
-    daily_dates: ["2025-04-25", "2025-04-26", "2025-04-27"]
-  },
-  4: {
-    total_count: 32,
-    period: "Last 4 days",
-    start_date: "2025-04-24T00:00:00.000Z",
-    end_date: "2025-04-28T00:00:00.000Z",
-    daily_counts: [0, 20, 3, 9],
-    daily_dates: ["2025-04-24", "2025-04-25", "2025-04-26", "2025-04-27"]
-  }
-};
+import { fetchCallCount } from '@/api/axiosApis/get';
 
 // Styled components
 const ChartWrapper = styled('div')({
@@ -65,23 +38,31 @@ const AxisLabelWrapper = styled('div')(({ theme }) => ({
   fontWeight: 500,
 }));
 
-export default function ChartFiltersDynamic({
-  days = 4,
-  type = 'area'
-}) {
+export default function CallTrendsChart({ type = 'area' }) {
   const theme = useTheme();
   const [raw, setRaw] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setRaw(DUMMY_RESPONSES[days] || DUMMY_RESPONSES[2]);
-      setLoading(false);
-    }, 300);
-  }, [days]);
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchCallCount(7); // Always fetch last 7 days
+        setRaw(data);
+      } catch (err) {
+        console.error("Error fetching call count:", err);
+        setError("Failed to load call data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
 
   if (loading) return <Card sx={{ p: 3 }}>Loading…</Card>;
+  if (error) return <Card sx={{ p: 3, color: 'error.main' }}>{error}</Card>;
 
   const stats = [
     { id: 1, title: 'Total Count', value: raw.total_count },
@@ -128,7 +109,7 @@ export default function ChartFiltersDynamic({
   return (
     <Card>
       <Typography variant="h6" sx={{ px: 3, pt: 2 }}>
-      Recent Call Trends
+        Recent Call Trends
       </Typography>
 
       <TopContentWrapper>
