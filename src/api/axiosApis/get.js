@@ -1,5 +1,7 @@
 import { get, isSuccessResp } from "../base";
 
+
+
 export const fetchCallIntents = async (days = 7) => {
   try {
     const response = await get("/analysis/calls/intents-that-why-people-called", {
@@ -35,3 +37,23 @@ export const fetchCallTimeDistribution = async (days = 7) => {
   }
 };
 
+
+
+
+// GET /analysis/calls/duration-stats?days=7 (optional)
+export const fetchCallDurationStats = async (days=7) => {
+  try {
+    const response = await get("/analysis/calls/duration-stats", {
+      params: days ? { days } : {}, // Send days only if provided
+    });
+
+    if (isSuccessResp(response.status)) {
+      return response.data;
+    } else {
+      throw new Error("Failed to fetch call duration stats");
+    }
+  } catch (error) {
+    console.error("Error fetching duration stats:", error);
+    throw error;
+  }
+};

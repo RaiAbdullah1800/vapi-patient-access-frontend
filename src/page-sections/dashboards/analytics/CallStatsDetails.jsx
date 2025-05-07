@@ -12,30 +12,25 @@ import Scrollbar from '@/components/scrollbar';
 import { Paragraph } from '@/components/typography';
 import { FlexBetween, FlexBox } from '@/components/flexbox';
 import { HeadTableCell, BodyTableCell } from './styles';
-
-// Mock API response
-const DUMMY_CALL_RESPONSE = {
-  total_calls: 50,                      // handful of calls
-  average_duration_seconds: 320.45,     // ~5m20s average
-  average_duration_minutes: 5.34,
-  short_calls: 12,                      // quick chats
-  long_calls: 8,                        // deep dives
-  short_calls_percentage: 24,           // 12/50*100
-  long_calls_percentage: 16,            // 8/50*100
-  period: 'All time'
-};
-
+import { fetchCallDurationStats } from '@/api/axiosApis/get';
 
 export default function CallStats() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setData(DUMMY_CALL_RESPONSE);
-      setLoading(false);
-    }, 300);
+    const loadData = async () => {
+      try {
+        const response = await fetchCallDurationStats();
+        setData(response);  // Set the fetched data
+      } catch (error) {
+        console.error('Failed to fetch call duration stats:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
   if (loading) {

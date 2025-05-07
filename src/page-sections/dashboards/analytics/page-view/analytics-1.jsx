@@ -1,7 +1,6 @@
 import Grid from '@mui/material/Grid2';
 
 import LiveUser from '../LiveUser';
-import TopQueries from '../TopQueries';
 
 import ChartFilters from '../ChartFilters';
 import IntentAnalysis from '../IntentAnalysisBar';
@@ -11,6 +10,7 @@ import SessionBrowsers from '../SessionBrowsers';
 
 import { Typography } from '@mui/material';
 import CallTimeDistribution from '../CallTimeDistributionBar';
+import CallStats from '../CallStatsDetails';
 
 export default function Analytics1PageView() {
   return <div className="pt-2 pb-4">
@@ -39,7 +39,7 @@ export default function Analytics1PageView() {
         md: 8,
         xs: 12
       }}>
-          <TopQueries />
+          <CallStats />
         </Grid>
 
 

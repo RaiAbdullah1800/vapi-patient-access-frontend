@@ -2,15 +2,15 @@ import Grid from '@mui/material/Grid2';
 import Stack from '@mui/material/Stack'; // CUSTOM PAGE SECTION COMPONENTS
 
 //import Footer from '../../_common/Footer';
-import TopQueries from '../TopQueries';
-import TopReferral from '../TopReferral';
-import ChartFilters from '../ChartFilters';
-import CompleteGoal from '../CompleteGoal';
-import CompleteRate from '../CompleteRate';
-import TopPerforming from '../TopPerforming';
-import SessionBrowser from '../SessionBrowser';
-import SalesByCountry from '../SalesByCountry';
-import AveragePosition from '../AveragePosition';
+// import TopQueries from '../TopQueries';
+// import TopReferral from '../TopReferral';
+// import ChartFilters from '../ChartFilters';
+// import CompleteGoal from '../CompleteGoal';
+// import CompleteRate from '../CompleteRate';
+// import TopPerforming from '../TopPerforming';
+// import SessionBrowser from '../SessionBrowser';
+// import SalesByCountry from '../SalesByCountry';
+// import AveragePosition from '../AveragePosition';
 export default function Analytics2PageView() {
   return <div className="pt-2 pb-4">
       <Grid container spacing={3}>
@@ -21,7 +21,7 @@ export default function Analytics2PageView() {
         md: 4,
         xs: 12
       }}>
-          <AveragePosition />
+          {/* <AveragePosition /> */}
         </Grid>
 
         {
@@ -31,7 +31,7 @@ export default function Analytics2PageView() {
         md: 8,
         xs: 12
       }}>
-          <ChartFilters type="line" />
+          {/* <ChartFilters type="line" /> */}
         </Grid>
 
         {
@@ -41,7 +41,7 @@ export default function Analytics2PageView() {
         md: 8,
         xs: 12
       }}>
-          <TopReferral />
+          {/* <TopReferral /> */}
         </Grid>
 
         {
@@ -51,7 +51,7 @@ export default function Analytics2PageView() {
         md: 4,
         xs: 12
       }}>
-          <SessionBrowser />
+          {/* <SessionBrowser /> */}
         </Grid>
 
         {
@@ -70,7 +70,7 @@ export default function Analytics2PageView() {
           sm: 'row',
           xs: 'column'
         }}>
-            <CompleteGoal chart="area" />
+            {/* <CompleteGoal chart="area" /> */}
             <CompleteRate />
           </Stack>
         </Grid>
@@ -82,7 +82,7 @@ export default function Analytics2PageView() {
         lg: 9,
         xs: 12
       }}>
-          <SalesByCountry chartHorizontal />
+          {/* <SalesByCountry chartHorizontal /> */}
         </Grid>
 
         {
@@ -92,7 +92,7 @@ export default function Analytics2PageView() {
         md: 6,
         xs: 12
       }}>
-          <TopPerforming />
+          {/* <TopPerforming /> */}
         </Grid>
 
         {
@@ -102,7 +102,7 @@ export default function Analytics2PageView() {
         md: 6,
         xs: 12
       }}>
-          <TopQueries />
+          {/* <TopQueries /> */}
         </Grid>
 
         {
