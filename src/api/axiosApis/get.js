@@ -57,3 +57,22 @@ export const fetchCallDurationStats = async (days=7) => {
     throw error;
   }
 };
+
+
+
+export const fetchCallCostSummary = async (days) => {
+  try {
+    const response = await get("/analysis/costs/sum", {
+      params: days ? { days } : {},
+    });
+
+    if (isSuccessResp(response.status)) {
+      return response.data;
+    } else {
+      throw new Error("Failed to fetch call cost summary");
+    }
+  } catch (error) {
+    console.error("Error fetching call cost summary:", error);
+    throw error;
+  }
+};

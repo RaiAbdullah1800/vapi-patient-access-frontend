@@ -14,21 +14,11 @@ import { Paragraph } from '@/components/typography';
 import { FlexBetween, FlexBox } from '@/components/flexbox';
 import { baseChartOptions } from '@/utils/baseChartOptions';
 import { format } from '@/utils/currency';
+import { fetchCallCostSummary } from '@/api/axiosApis/get';
 
 const StyledChart = styled(Chart)({
   marginBottom: 24,
 });
-
-// Mock API response for cost summary
-const DUMMY_COST_RESPONSE = {
-  total_calls: 50,
-  total_cost: 12.345,
-  stt_cost: 0.077,
-  llm_cost: 0.011,
-  tts_cost: 0.1566,
-  vapi_cost: 0.3795,
-  period: 'All time',
-};
 
 export default function CostSummary() {
   const theme = useTheme();
@@ -37,14 +27,21 @@ export default function CostSummary() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setData(DUMMY_COST_RESPONSE);
-      setLoading(false);
-    }, 300);
+    const loadData = async () => {
+      try {
+        const res = await fetchCallCostSummary();
+        setData(res);
+      } catch (err) {
+        console.error('Failed to fetch call cost summary:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
-  if (loading) {
+  if (loading || !data) {
     return (
       <Card sx={{ p: 3 }}>
         <Paragraph color="text.secondary">{t('Loading cost summary...')}</Paragraph>
@@ -101,7 +98,6 @@ export default function CostSummary() {
         </Paragraph>
       </FlexBetween>
 
-      {/* Subheading style for totals */}
       <Box px={3} pb={2}>
         <Paragraph color="text.secondary" fontSize={14} fontWeight={500}>
           {t('Total Calls')}: {data.total_calls}

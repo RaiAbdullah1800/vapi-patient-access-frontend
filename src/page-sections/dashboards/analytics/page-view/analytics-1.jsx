@@ -5,12 +5,12 @@ import LiveUser from '../LiveUser';
 import ChartFilters from '../ChartFilters';
 import IntentAnalysis from '../IntentAnalysisBar';
 
-import SessionBrowser from '../SessionBrowser';
 import SessionBrowsers from '../SessionBrowsers';
 
 import { Typography } from '@mui/material';
 import CallTimeDistribution from '../CallTimeDistributionBar';
 import CallStats from '../CallStatsDetails';
+import CostSummary from '../CostSummaryPieChart';
 
 export default function Analytics1PageView() {
   return <div className="pt-2 pb-4">
@@ -47,7 +47,7 @@ export default function Analytics1PageView() {
         md: 4,
         xs: 12
       }}>
-          <SessionBrowser />
+          <CostSummary />
         </Grid>
 
         <Grid size={{
