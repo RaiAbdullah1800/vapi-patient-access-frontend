@@ -141,3 +141,26 @@ export const fetchCallSuccessRate = async (days = 7) => {
     throw error;
   }
 };
+
+
+
+
+
+// GET /patients/?patient_id=<optional>
+export const fetchPatientsList = async (patientId = null) => {
+  try {
+    const response = await get("/patients/", {
+      params: patientId ? { patient_id: patientId } : {},
+    });
+
+    if (isSuccessResp(response.status)) {
+      return response.data;
+    } else {
+      throw new Error("Failed to fetch patient data");
+    }
+  } catch (error) {
+    console.error("Error fetching patient data:", error);
+    throw error;
+  }
+};
+
