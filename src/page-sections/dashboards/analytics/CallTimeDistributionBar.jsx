@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import useTheme from '@mui/material/styles/useTheme';
@@ -5,28 +6,42 @@ import merge from 'lodash.merge';
 import Chart from 'react-apexcharts';
 import { Typography } from '@mui/material';
 // CUSTOM COMPONENTS
-import Title from '@/components/title';
+import { fetchCallTimeDistribution } from '@/api/axiosApis/get';
 // CUSTOM UTILS METHODS
 import { baseChartOptions } from '@/utils/baseChartOptions';
 
-const callDistributionData = {
-  total_calls: 1,
-  daily_distribution: {
-    Monday: 0,
-    Tuesday: 0,
-    Wednesday: 1,
-    Thursday: 0,
-    Friday: 0,
-    Saturday: 0,
-    Sunday: 0
-  }
-};
-
 export default function CallTimeDistribution() {
   const theme = useTheme();
+  const [distributionData, setDistributionData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const dayLabels = Object.keys(callDistributionData.daily_distribution);
-  const dayValues = Object.values(callDistributionData.daily_distribution);
+  useEffect(() => {
+    const loadDistributionData = async () => {
+      try {
+        const data = await fetchCallTimeDistribution();
+        setDistributionData(data);
+      } catch (error) {
+        console.error('Failed to fetch call distribution data', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDistributionData();
+  }, []);
+
+  if (loading || !distributionData) {
+    return (
+      <Card>
+        <Box p={3}>
+          <Typography variant="body1">Loading call distribution data...</Typography>
+        </Box>
+      </Card>
+    );
+  }
+
+  const dayLabels = Object.keys(distributionData.daily_distribution);
+  const dayValues = Object.values(distributionData.daily_distribution);
 
   const barChartOptions = merge(baseChartOptions(theme), {
     chart: {
@@ -54,8 +69,9 @@ export default function CallTimeDistribution() {
     },
     tooltip: {
       y: {
-        formatter: function (val, { dataPointIndex, w }) {
-          return `${w.globals.labels[dataPointIndex]} : ${val}`;
+        formatter: function (val, { dataPointIndex }) {
+          const originalVal = dayValues[dataPointIndex];
+          return `${dayLabels[dataPointIndex]} : ${originalVal}`;
         }
       }
     },
@@ -67,7 +83,7 @@ export default function CallTimeDistribution() {
   return (
     <Card>
       <Box p={3} pb={0}>
-        <Typography variant="h6">Total Calls: {callDistributionData.total_calls}</Typography>
+        <Typography variant="h6">Total Calls: {distributionData.total_calls}</Typography>
         <Typography variant="subtitle2" color="text.secondary" mb={2}>
           Daily Call Distribution
         </Typography>
@@ -78,9 +94,9 @@ export default function CallTimeDistribution() {
         options={barChartOptions}
         series={[{
           name: 'Calls per Day',
-          data: dayValues
+          data: dayValues.map(val => val === 0 ? 0.01 : val)
         }]}
-        height={200} // Dynamic height based on item count
+        height={200}
       />
     </Card>
   );

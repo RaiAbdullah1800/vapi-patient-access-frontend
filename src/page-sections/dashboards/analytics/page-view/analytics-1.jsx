@@ -4,12 +4,13 @@ import LiveUser from '../LiveUser';
 import TopQueries from '../TopQueries';
 
 import ChartFilters from '../ChartFilters';
-import CompleteGoal from '../CompleteGoal';
-import CompleteRate from '../CompleteRate';
+import IntentAnalysis from '../IntentAnalysisBar';
+
 import SessionBrowser from '../SessionBrowser';
 import SessionBrowsers from '../SessionBrowsers';
 
 import { Typography } from '@mui/material';
+import CallTimeDistribution from '../CallTimeDistributionBar';
 
 export default function Analytics1PageView() {
   return <div className="pt-2 pb-4">
@@ -25,13 +26,13 @@ export default function Analytics1PageView() {
         lg: 6,
         xs: 12
       }}>
-        <CompleteGoal />
+        <IntentAnalysis />
         </Grid>
         <Grid size={{
         lg: 6,
         xs: 12
       }}>
-        <CompleteRate />
+        <CallTimeDistribution />
         </Grid>
 
         <Grid size={{
